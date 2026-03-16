@@ -1,0 +1,35 @@
+{
+  "name": "crud-api",
+  "version": "1.0.0",
+  "description": "API for the Product Catalog",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc",
+    "start:dev": "tsx watch src/index.ts",
+    "start:prod": "npm run build && node dist/index.js",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "lint": "eslint 'src/**/*.ts'",
+    "lint:fix": "eslint 'src/**/*.ts' --fix"
+  },
+  "type": "module",
+  "keywords": [
+    "node",
+    "api"
+  ],
+  "author": "Ryhus",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/jest": "30.0.0",
+    "@types/node": "25.5.0",
+    "dotenv": "17.3.1",
+    "jest": "30.3.0",
+    "ts-jest": "29.4.6",
+    "tsx": "4.21.0",
+    "typescript": "5.9.3"
+  },
+  "dependencies": {
+    "fastify": "5.8.2"
+  }
+}
