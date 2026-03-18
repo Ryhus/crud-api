@@ -5,13 +5,11 @@
   "main": "index.js",
   "scripts": {
     "build": "tsc",
-    "start:dev": "tsx watch src/index.ts",
-    "start:prod": "npm run build && node dist/index.js",
+    "start:dev": "tsx watch src/app.ts",
+    "start:prod": "npm run build && node dist/app.js",
     "test": "jest",
     "test:watch": "jest --watch",
-    "test:coverage": "jest --coverage",
-    "lint": "eslint 'src/**/*.ts'",
-    "lint:fix": "eslint 'src/**/*.ts' --fix"
+    "test:coverage": "jest --coverage"
   },
   "type": "module",
   "keywords": [
