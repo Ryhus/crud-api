@@ -27,7 +27,7 @@ export const createProductsShema = {
       name: { type: "string" },
       description: { type: "string" },
       price: { type: "number", minimum: 1 },
-      category: { type: "string" },
+      category: { type: "string", enum: ["electronics", "books", "clothing"] },
       inStock: { type: "boolean" },
     },
   },
