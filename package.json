@@ -6,6 +6,7 @@
   "scripts": {
     "build": "tsc",
     "start:dev": "tsx watch src/app.ts",
+    "start:multi": "tsx watch src/cluster.ts",
     "start:prod": "npm run build && node dist/app.js",
     "test": "jest",
     "test:watch": "jest --watch",

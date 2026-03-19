@@ -1,15 +1,17 @@
 import { FastifyInstance } from "fastify";
 import createProductRepository from "./products.repository.js";
-import createProductsService from "./products.service.js";
+import { createIPC } from "@/utils.js";
 import type { Product } from "./products.types.js";
 import {
   createProductsShema,
   getProductbyIDSchema,
 } from "./products.schema.js";
+import createProductsServiceWithIPC from "./products.serviceICP.js";
 
 export default async function productRoutes(server: FastifyInstance) {
+  const { sendToMaster } = createIPC();
   const repo = createProductRepository();
-  const service = createProductsService(repo);
+  const service = createProductsServiceWithIPC(repo, sendToMaster);
 
   server.get("/products", async () => {
     return service.getProducts();
