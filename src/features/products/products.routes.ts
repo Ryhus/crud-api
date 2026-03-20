@@ -15,7 +15,7 @@ export default async function productRoutes(server: FastifyInstance) {
   const service = createProductsServiceWithIPC(repo, sendToMaster);
 
   server.get("/products", async () => {
-    return service.getProducts();
+    return await service.getProducts();
   });
 
   server.post<{ Body: Product }>(
@@ -25,7 +25,8 @@ export default async function productRoutes(server: FastifyInstance) {
     },
     async (request, reply) => {
       const data = request.body;
-      const created = service.createProduct(data);
+      const created = await service.createProduct(data);
+      console.log(created);
       return reply.status(201).send(created);
     },
   );
@@ -36,7 +37,7 @@ export default async function productRoutes(server: FastifyInstance) {
     async (request, reply) => {
       const { id } = request.params as { id: string };
 
-      const product = service.getProductById(id);
+      const product = await service.getProductById(id);
 
       if (!product) {
         reply.code(404).send({
@@ -56,7 +57,7 @@ export default async function productRoutes(server: FastifyInstance) {
     async (request, reply) => {
       const { id } = request.params as { id: string };
 
-      const product = service.deleteProduct(id);
+      const product = await service.deleteProduct(id);
 
       if (!product) {
         reply.code(404).send({
@@ -73,11 +74,11 @@ export default async function productRoutes(server: FastifyInstance) {
   server.put<{ Body: Product }>(
     "/products/:id",
     { schema: getProductbyIDSchema },
-    (request, reply) => {
+    async (request, reply) => {
       const { id } = request.params as { id: string };
       const data = request.body;
 
-      const product = service.updateProduct(id, data);
+      const product = await service.updateProduct(id, data);
 
       if (!product) {
         reply.code(404).send({
