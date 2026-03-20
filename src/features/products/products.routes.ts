@@ -1,6 +1,6 @@
 import { FastifyInstance } from "fastify";
 import createProductRepository from "./products.repository.js";
-import { createIPC } from "@/utils.js";
+import { createIPC } from "../../utils.js";
 import type { Product } from "./products.types.js";
 import {
   createProductsShema,

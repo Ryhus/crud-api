@@ -1,5 +1,5 @@
 import "dotenv/config";
-import startServer from "./server.js";
+import { startServer } from "./server.js";
 import cluster from "node:cluster";
 import { availableParallelism } from "node:os";
 import fastify from "fastify";
