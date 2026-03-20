@@ -9,7 +9,8 @@ import {
 import createProductsServiceWithIPC from "./products.serviceICP.js";
 
 export default async function productRoutes(server: FastifyInstance) {
-  const { sendToMaster } = createIPC();
+  const sendToMaster = server.clusterMode ? createIPC() : undefined;
+
   const repo = createProductRepository();
   const service = createProductsServiceWithIPC(repo, sendToMaster);
 
@@ -39,9 +40,9 @@ export default async function productRoutes(server: FastifyInstance) {
 
       if (!product) {
         reply.code(404).send({
-          error: "Not found",
-          message: "Product not found",
           statusCode: 404,
+          message: "Product not found",
+          code: "NOT_FOUND",
         });
       }
 
@@ -59,9 +60,9 @@ export default async function productRoutes(server: FastifyInstance) {
 
       if (!product) {
         reply.code(404).send({
-          error: "Not found",
-          message: "Product not found",
           statusCode: 404,
+          message: "Product not found",
+          code: "NOT_FOUND",
         });
       }
 
@@ -80,9 +81,9 @@ export default async function productRoutes(server: FastifyInstance) {
 
       if (!product) {
         reply.code(404).send({
-          error: "Not found",
-          message: "Product not found",
           statusCode: 404,
+          message: "Product not found",
+          code: "NOT_FOUND",
         });
       }
 

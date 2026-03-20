@@ -89,5 +89,5 @@ if (cluster.isPrimary) {
   });
 } else {
   const WORKER_PORT = Number(process.env.PORT);
-  startServer(WORKER_PORT);
+  startServer(WORKER_PORT, true);
 }

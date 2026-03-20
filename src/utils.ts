@@ -1,21 +1,27 @@
 import crypto from "node:crypto";
 
 export function createIPC() {
-  function sendToMaster<T>(type: string, payload: unknown): Promise<T> {
-    return new Promise((resolve) => {
-      const requestId = crypto.randomUUID();
+  async function sendToMaster<T>(type: string, payload: unknown): Promise<T> {
+    if (!process.send) {
+      throw new Error("IPC not available");
+    }
 
-      function onMessage(msg: { requestId: string; data: T }) {
-        if (msg.requestId === requestId) {
-          process.off("message", onMessage);
-          resolve(msg.data);
-        }
-      }
+    const requestId = crypto.randomUUID();
 
-      process.on("message", onMessage);
+    const result = await new Promise<T>((resolve) => {
+      const handler = (msg: { requestId: string; data: T }) => {
+        if (msg.requestId !== requestId) return;
+
+        process.off("message", handler);
+        resolve(msg.data);
+      };
+
+      process.on("message", handler);
       process.send!({ type, payload, requestId });
     });
+
+    return result;
   }
 
-  return { sendToMaster };
+  return sendToMaster;
 }
