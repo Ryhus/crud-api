@@ -74,7 +74,7 @@ describe("api/products", () => {
       url: "/api/products",
       payload: newProduct,
     });
-    expect(responseWithZero.statusCode).toBe(400);
+    expect(responseWithNegative.statusCode).toBe(400);
   });
 
   test("POST throws on wrong category", async () => {
